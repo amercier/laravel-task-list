@@ -24,10 +24,6 @@ Setup
 ```
 composer install
 ```
-3. Setup local environment settings:
-```
-cp .env.example .env
-```
 
 ### Start
 
@@ -37,7 +33,7 @@ vagrant up
 ```
 2. Migrate database:
 ```
-php artisan migrate
+DB_PORT=33060 php artisan migrate
 ```
 3. Visit http://laravel-basic-task-list.app/
 
