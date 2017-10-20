@@ -24,6 +24,10 @@ Setup
 ```
 composer install
 ```
+3. Setup local environment settings:
+```
+cp .env.example .env
+```
 
 ### Start
 
@@ -31,7 +35,11 @@ composer install
 ```
 vagrant up
 ```
-2. Visit http://laravel-basic-task-list.app/
+2. Migrate database:
+```
+php artisan migrate
+```
+3. Visit http://laravel-basic-task-list.app/
 
 Licence
 -------
