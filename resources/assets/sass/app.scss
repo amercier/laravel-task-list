@@ -1,9 +1,25 @@
 
 // Fonts
-@import url("https://fonts.googleapis.com/css?family=Raleway:300,400,600");
+@import url("https://fonts.googleapis.com/css?family=Lato:100,300,400,700");
 
 // Variables
 @import "variables";
 
 // Bootstrap
 @import "~bootstrap-sass/assets/stylesheets/bootstrap";
+
+// Font awesome
+@import "~font-awesome/scss/font-awesome";
+
+body {
+  font-family: 'Lato';
+  padding: 2rem 0;
+}
+
+.fa-btn {
+  margin-right: 6px;
+}
+
+.table .table-text {
+  vertical-align: middle;
+}

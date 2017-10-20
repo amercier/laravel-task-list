@@ -1,3 +1,5 @@
+// Bootstrap
+// =========
 
 // Body
 $body-bg: #f5f8fa;
@@ -18,8 +20,8 @@ $brand-danger: #bf5329;
 
 // Typography
 $icon-font-path: "~bootstrap-sass/assets/fonts/bootstrap/";
-$font-family-sans-serif: "Raleway", sans-serif;
-$font-size-base: 14px;
+$font-family-sans-serif: "Lato", sans-serif;
+$font-size-base: 16px;
 $line-height-base: 1.6;
 $text-color: #636b6f;
 
@@ -36,3 +38,14 @@ $input-color-placeholder: lighten($text-color, 30%);
 
 // Panels
 $panel-default-heading-bg: #fff;
+
+// Font Awesome
+// ============
+
+// Disable Bootstrap Glyphicons
+$icon-font-path: "~font-awesome/fonts/";
+$icon-font-name: "fontawesome-webfont";
+$icon-font-svg-id: "fontawesomeregular";
+
+// Typography
+$fa-font-path: "~font-awesome/fonts/";

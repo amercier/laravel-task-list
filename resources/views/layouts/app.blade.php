@@ -8,8 +8,16 @@
     <body>
         <div class="container">
             <nav class="navbar navbar-default">
-                <!-- Navbar Contents -->
-                Task list
+                <div class="container">
+                    <div class="navbar-header">
+
+                        <!-- Branding Image -->
+                        <a class="navbar-brand" href="{{ url('/') }}">
+                            Task List
+                        </a>
+                    </div>
+
+                </div>
             </nav>
         </div>
 
