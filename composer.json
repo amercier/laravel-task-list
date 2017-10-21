@@ -59,7 +59,8 @@
         ],
         "lint": [
             "phpcs --extensions=php \"--ignore=vendor/*,node_modules/*,bootstrap/cache/*,storage/*,*.blade.php,public/index.php\"  --standard=PSR1 .",
-            "phpcs --extensions=php \"--ignore=vendor/*,node_modules/*,bootstrap/cache/*,storage/*,*.blade.php,public/index.php\"  --standard=PSR2 ."
+            "phpcs --extensions=php \"--ignore=vendor/*,node_modules/*,bootstrap/cache/*,storage/*,*.blade.php,public/index.php\"  --standard=PSR2 .",
+            "npm run lint"
         ]
     },
     "config": {
