@@ -1,0 +1,26 @@
+ip: 10.0.0.10
+memory: 2048
+cpus: 1
+provider: virtualbox
+authorize: ~/.ssh/id_rsa.pub
+keys:
+    - ~/.ssh/id_rsa
+folders:
+    -
+        map: /Users/amercier/Workspace/laravel-basic-task-list
+        to: /home/vagrant/code
+sites:
+    -
+        map: localhost
+        to: /home/vagrant/code/public
+databases:
+    - homestead
+name: laravel-basic-task-list
+hostname: laravel-basic-task-list
+ports:
+    - guest: 80
+      host: 8080 # Prevents collision with `php artisan serve`
+      protocol: tcp
+variables:
+    - key: APP_ENV
+      value: staging

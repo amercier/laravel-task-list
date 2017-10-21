@@ -16,26 +16,33 @@ Setup
 
 ### Initial setup
 
-1. Add to `/etc/hosts`:
+1. Run (in project directory):
 ```
-10.0.0.10 laravel-basic-task-list.app
-```
-2. Run (in project directory):
-```
+composer create-project
 composer install
 ```
 
 ### Start
 
+#### Local environment: 
+
+1. Run
+```
+php artisan serve
+```
+2. Visit http://localhost:8000/
+
+Note: in `local` environment, SQLite is used as database.
+
+#### Using Homestead
+
 1. Run (in project directory):
 ```
-vagrant up
+composer run homestead-init
 ```
-2. Migrate database:
-```
-DB_PORT=33060 php artisan migrate
-```
-3. Visit http://laravel-basic-task-list.app/
+2. Visit http://localhost:8080/
+
+Note: in `homestead` environment, MySQL is used as database.
 
 Licence
 -------
