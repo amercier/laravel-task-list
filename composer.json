@@ -40,23 +40,21 @@
         }
     },
     "scripts": {
-        "post-root-package-install": [
+        "pre-install-cmd": [
             "@php -r \"file_exists('.env') || copy('.env.example', '.env');\"",
             "@php -r \"file_exists('.env.staging') || copy('.env.staging.example', '.env.staging');\"",
-            "@php -r \"file_exists('.env.testing') || copy('.env.testing.example', '.env.testing');\"",
-            "@php artisan key:generate",
-            "@php artisan key:generate --env=staging",
-            "@php artisan key:generate --env=testing"
-        ],
-        "post-create-project-cmd": [
-            "touch database/database.sqlite",
-            "@php artisan migrate:refresh --seed"
+            "@php -r \"file_exists('.env.testing') || copy('.env.testing.example', '.env.testing');\""
         ],
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
             "@php artisan package:discover"
         ],
         "post-install-cmd": [
+            "@php artisan key:generate",
+            "@php artisan key:generate --env=staging",
+            "@php artisan key:generate --env=testing",
+            "touch database/database.sqlite",
+            "@php artisan migrate:refresh --seed",
             "npm install"
         ],
         "test": [
