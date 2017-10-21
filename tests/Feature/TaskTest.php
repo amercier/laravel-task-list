@@ -9,6 +9,7 @@ class TaskTest extends TestCase
 {
     /**
      * Retrieve task list
+     *
      * @return void
      */
     public function testGet()

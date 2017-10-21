@@ -14,8 +14,9 @@ class TaskListTest extends DuskTestCase
      */
     public function testTaskList()
     {
-        $this->browse(function (Browser $browser) {
-            $browser->visit('/')
+        $this->browse(
+            function (Browser $browser) {
+                $browser->visit('/')
 
                     // Empty task list
                     ->assertSee('Task List')
@@ -48,6 +49,7 @@ class TaskListTest extends DuskTestCase
                     ->assertPathIs('/')
                     ->assertDontSee('Test task 1')
                     ->assertDontSee('Test task 2');
-        });
+            }
+        );
     }
 }
