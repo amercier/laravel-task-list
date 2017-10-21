@@ -1,6 +1,8 @@
 Laravel Basic Task List
 =======================
 
+[![Build Status](https://travis-ci.org/amercier/laravel-basic-task-list.svg)](https://travis-ci.org/amercier/laravel-basic-task-list)
+
 Basic Task List using Laravel PHP framework, based on
 [official tutorial](https://laravel.com/docs/5.2/quickstart).
 

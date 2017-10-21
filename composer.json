@@ -1,15 +1,14 @@
 {
-    "name": "laravel/laravel",
-    "description": "The Laravel Framework.",
-    "keywords": ["framework", "laravel"],
+    "name": "amercier/laravel-basic-task-list",
+    "description": "Basic Task List using Laravel framework.",
+    "keywords": ["todo", "todoapp", "laravel", "framework"],
     "license": "MIT",
     "type": "project",
     "require": {
         "php": ">=7.0.0",
         "fideloper/proxy": "~3.3",
         "laravel/framework": "5.5.*",
-        "laravel/tinker": "~1.0",
-        "squizlabs/php_codesniffer": "^3.1"
+        "laravel/tinker": "~1.0"
     },
     "require-dev": {
         "filp/whoops": "~2.0",
@@ -17,7 +16,8 @@
         "laravel/dusk": "^2.0",
         "laravel/homestead": "^6.5",
         "mockery/mockery": "~1.0",
-        "phpunit/phpunit": "~6.0"
+        "phpunit/phpunit": "~6.0",
+        "squizlabs/php_codesniffer": "^3.1"
     },
     "autoload": {
         "classmap": [
@@ -40,23 +40,21 @@
         }
     },
     "scripts": {
-        "post-root-package-install": [
+        "pre-install-cmd": [
             "@php -r \"file_exists('.env') || copy('.env.example', '.env');\"",
             "@php -r \"file_exists('.env.staging') || copy('.env.staging.example', '.env.staging');\"",
-            "@php -r \"file_exists('.env.testing') || copy('.env.testing.example', '.env.testing');\"",
-            "@php artisan key:generate",
-            "@php artisan key:generate --env=staging",
-            "@php artisan key:generate --env=testing"
-        ],
-        "post-create-project-cmd": [
-            "touch database/database.sqlite",
-            "@php artisan migrate:refresh --seed"
+            "@php -r \"file_exists('.env.testing') || copy('.env.testing.example', '.env.testing');\""
         ],
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
             "@php artisan package:discover"
         ],
         "post-install-cmd": [
+            "@php artisan key:generate",
+            "@php artisan key:generate --env=staging",
+            "@php artisan key:generate --env=testing",
+            "touch database/database.sqlite",
+            "@php artisan migrate:refresh --seed",
             "npm install"
         ],
         "test": [
