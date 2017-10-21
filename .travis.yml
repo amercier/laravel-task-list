@@ -2,7 +2,7 @@ language: php
 php:
   - 7.1
 install:
-  - travis_retry composer install --no-interaction
+  - travis_retry composer install --no-interaction --prefer-dist
 
 before_script:
   - export DISPLAY=:99.0
@@ -12,3 +12,7 @@ before_script:
 script:
   - composer run lint
   - composer run test
+cache:
+  directories:
+    - $HOME/.composer/cache
+    - $HOME/.npm
