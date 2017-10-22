@@ -7,10 +7,12 @@ return [
             . '@ftp.amercier.com/laravel-basic-task-list',
         'local' => '.',
         'ignore' => implode([
-            '.git',
-            'node_modules',
-            'vendor',
-            '.htdeployment',
+            '/.git',
+            '/node_modules',
+            '/vendor',
+            '/.htdeployment',
+            '/.env*',
+            '!.env.production*',
             '*.sqlite',
             '*.log'
         ], "\n"),

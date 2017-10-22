@@ -1,25 +1,6 @@
 <?php
-// @codingStandardsIgnoreFile
-
-header('Content-type: text/plain');
-header('Content-Encoding: none');
-
-function disable_ob()
-{
-    @ini_set('zlib.output_compression', 0);
-    @ini_set('implicit_flush', 1);
-    for ($i = 0; $i < ob_get_level(); $i++) {
-        ob_end_flush();
-    }
-    ob_implicit_flush(1);
-    header('Expires: Fri, 01 Jan 1990 00:00:00 GMT');
-    header('Cache-Control: no-cache, no-store, max-age=0, must-revalidate');
-    header('Pragma: no-cache');
-    header('Connection: close');
-}
 
 chdir(dirname(__DIR__));
-disable_ob();
 $php = 'HOME="' . dirname(dirname(__DIR__)) . '" /usr/local/php7.0/bin/php -d safe_mode_allowed_env_vars=';
 
 // Composer installation
