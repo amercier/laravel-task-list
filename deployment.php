@@ -18,8 +18,7 @@ return [
         'purge' => ['temp/cache'],
         'preprocess' => false,
         'after' => [
-            'upload: .env.production .env',
-            'http://laravel-basic-task-list.amercier.com/post-deployment.php'
+            'upload: .env.production .env'
         ]
     ],
     'tempDir' => __DIR__ . '/temp',
