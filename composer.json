@@ -79,13 +79,13 @@
         "deploy": [
             "npm run production",
             "@php -r \"copy('.env.production.example', '.env.production');\"",
-            "@php artisan key:generate --env=production",
             "[ -z \"$DEPLOY_DB_HOST\" ] && echo ERROR: missing \\'DEPLOY_DB_HOST\\' environment variable >&2 && exit 1 || sed -i'' s/DB_HOST=.*/DB_HOST=$DEPLOY_DB_HOST/ .env.production",
             "[ -z \"$DEPLOY_DB_PORT\" ] && echo ERROR: missing \\'DEPLOY_DB_PORT\\' environment variable >&2 && exit 1 || sed -i'' s/DB_PORT=.*/DB_PORT=$DEPLOY_DB_PORT/ .env.production",
             "[ -z \"$DEPLOY_DB_CONNECTION\" ] && echo ERROR: missing \\'DEPLOY_DB_CONNECTION\\' environment variable >&2 && exit 1 || sed -i'' s/DB_CONNECTION=.*/DB_CONNECTION=$DEPLOY_DB_CONNECTION/ .env.production",
             "[ -z \"$DEPLOY_DB_DATABASE\" ] && echo ERROR: missing \\'DEPLOY_DB_DATABASE\\' environment variable >&2 && exit 1 || sed -i'' s/DB_DATABASE=.*/DB_DATABASE=$DEPLOY_DB_DATABASE/ .env.production",
             "[ -z \"$DEPLOY_DB_USERNAME\" ] && echo ERROR: missing \\'DEPLOY_DB_USERNAME\\' environment variable >&2 && exit 1 || sed -i'' s/DB_USERNAME=.*/DB_USERNAME=$DEPLOY_DB_USERNAME/ .env.production",
             "[ -z \"$DEPLOY_DB_PASSWORD\" ] && echo ERROR: missing \\'DEPLOY_DB_PASSWORD\\' environment variable >&2 && exit 1 || sed -i'' s/DB_PASSWORD=.*/DB_PASSWORD=$DEPLOY_DB_PASSWORD/ .env.production",
+            "@php artisan key:generate --env=production",
             "deployment deployment.php"
         ],
         "post-deploy": [
