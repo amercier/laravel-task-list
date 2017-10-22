@@ -1,4 +1,5 @@
 <?php
+header('Content-Type: text/plain');
 
 chdir(dirname(__DIR__));
 $php = 'HOME="' . dirname(dirname(__DIR__)) . '" /usr/local/php7.0/bin/php -d safe_mode_allowed_env_vars=';
