@@ -9,6 +9,7 @@ return [
         'ignore' => implode([
             '.git',
             'node_modules',
+            'vendor',
             '.htdeployment',
             '*.sqlite',
             '*.log'
@@ -18,7 +19,7 @@ return [
         'preprocess' => false,
         'after' => [
             'remote: mv .env.production .env',
-            'http://laravel-basic-task-list.amercier.com/migrate.php'
+            'http://laravel-basic-task-list.amercier.com/post-deployment.php'
         ]
     ],
     'tempDir' => __DIR__ . '/temp',

@@ -10,6 +10,7 @@
 /.htdeployment
 /.idea
 /.vagrant
+composer.phar
 deployment.log
 npm-debug.log
 yarn-error.log
