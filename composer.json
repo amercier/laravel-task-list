@@ -94,7 +94,7 @@
         "post-deploy": [
             "@php artisan down || exit 0",
             "@php composer.phar install --no-interaction --prefer-dist --no-dev --optimize-autoloader",
-            "@php artisan key:generate",
+            "@php artisan key:generate --no-interaction --force",
             "@php artisan cache:clear",
             "@php artisan config:cache",
             "@php artisan migrate:install || exit 0",
