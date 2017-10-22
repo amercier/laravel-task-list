@@ -1,5 +1,24 @@
 <?php
+header('Content-type: text/plain');
+header('Content-Encoding: none');
+
+function disable_ob()
+{
+    @ini_set('zlib.output_compression', 0);
+    @ini_set('implicit_flush', 1);
+    for ($i = 0; $i < ob_get_level(); $i++) {
+        ob_end_flush();
+    }
+    ob_implicit_flush(1);
+    header('Expires: Fri, 01 Jan 1990 00:00:00 GMT');
+    header('Cache-Control: no-cache, no-store, max-age=0, must-revalidate');
+    header('Pragma: no-cache');
+    header('Connection: close');
+}
+
 chdir(dirname(__DIR__));
+disable_ob();
+$php = 'HOME="' . dirname(dirname(__DIR__)) . '" /usr/local/php7.0/bin/php -d safe_mode_allowed_env_vars=';
 
 // Composer installation
 if (file_exists('composer.phar')) {
@@ -15,18 +34,11 @@ if (file_exists('composer.phar')) {
         echo 'Composer installer corrupt' . PHP_EOL;
         unlink('composer-setup.php');
     }
-    shell_exec('php composer-setup.php');
-    unlink('composer-setup.php');
+    echo system($php . ' composer-setup.php 2>&1');
     echo 'Composer installed successfully' . PHP_EOL;
 }
 
-// Dependencies installation
-echo 'Installing dependencies...' . PHP_EOL;
-shell_exec('php composer install --no-interaction --prefer-dist --no-dev --optimize-autoloader');
-echo 'Dependencies installed successfully' . PHP_EOL;
-
-// Database migration
-echo 'Migrating database...' . PHP_EOL;
-shell_exec('php artisan migrate:install');
-shell_exec('php artisan migrate');
-echo 'Migration finished successfully' . PHP_EOL;
+// Run post-installation script
+echo 'Running post-installation script...' . PHP_EOL;
+echo system($php . ' composer.phar run post-deploy 2>&1');
+echo 'Post-installation finished successfully' . PHP_EOL;
