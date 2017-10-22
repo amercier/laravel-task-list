@@ -1,4 +1,6 @@
 <?php
+// @codingStandardsIgnoreFile
+
 header('Content-type: text/plain');
 header('Content-Encoding: none');
 
