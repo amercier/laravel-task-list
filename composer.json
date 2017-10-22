@@ -88,16 +88,18 @@
             "[ -z \"$DEPLOY_DB_PASSWORD\" ] && echo ERROR: missing \\'DEPLOY_DB_PASSWORD\\' environment variable >&2 && exit 1 || sed -i'' s/DB_PASSWORD=.*/DB_PASSWORD=$DEPLOY_DB_PASSWORD/ .env.production",
             "npm run production",
             "deployment deployment.php",
-            "curl --fail http://laravel-basic-task-list.amercier.com/post-deployment.php",
-            "curl --fail http://laravel-basic-task-list.amercier.com/"
+            "curl --fail --silent --show-error http://laravel-basic-task-list.amercier.com/post-deployment.php",
+            "curl --fail --silent --show-error http://laravel-basic-task-list.amercier.com/ >/dev/null"
         ],
         "post-deploy": [
+            "@php artisan down",
             "@php composer.phar install --no-interaction --prefer-dist --no-dev --optimize-autoloader",
             "@php artisan key:generate",
             "@php artisan cache:clear",
             "@php artisan config:cache",
             "@php artisan migrate:install || exit 0",
-            "@php artisan migrate --force"
+            "@php artisan migrate --force",
+            "@php artisan up"
         ]
     },
     "config": {
