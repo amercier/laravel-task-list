@@ -17,7 +17,8 @@ return [
         'purge' => ['temp/cache'],
         'preprocess' => false,
         'after' => [
-            'remote: mv .env.production .env'
+            'remote: mv .env.production .env',
+            'http://laravel-basic-task-list.amercier.com/migrate.php'
         ]
     ],
     'tempDir' => __DIR__ . '/temp',
