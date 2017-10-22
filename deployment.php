@@ -6,14 +6,7 @@ return [
             . getenv('DEPLOY_FTP_USERNAME') . ':' . getenv('DEPLOY_FTP_PASSWORD')
             . '@ftp.amercier.com/laravel-basic-task-list',
         'local' => '.',
-        'ignore' => implode([
-            '/.git',
-            '/node_modules',
-            '/vendor',
-            '/.env*',
-            '*.sqlite',
-            '*.log'
-        ], "\n"),
+        'ignore' => file_get_contents('.deployignore'),
         'allowDelete' => true,
         'purge' => ['temp/cache'],
         'preprocess' => false,

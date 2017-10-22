@@ -1,0 +1,10 @@
+/.git
+/node_modules
+/storage/framework/sessions/*
+!/storage/framework/sessions/.gitignore
+/temp
+/vendor
+/.env*
+/.htdeployment*
+*.sqlite
+*.log
