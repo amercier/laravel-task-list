@@ -25,4 +25,4 @@ deploy:
     skip_cleanup: true
     script: composer run deploy
     on:
-      branch: deploy-ovh
+      branch: master
