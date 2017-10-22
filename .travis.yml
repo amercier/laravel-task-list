@@ -21,6 +21,6 @@ cache:
 deploy:
   - provider: script
     skip_cleanup: true
-    script: git clean -x -f -d && composer run deploy
+    script: composer run deploy
     on:
       branch: deploy-ovh
