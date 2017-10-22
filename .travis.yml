@@ -21,6 +21,6 @@ cache:
 deploy:
   - provider: script
     skip_cleanup: true
-    script: git clean -x -f -d && composer install --no-interaction --prefer-dist --optimize-autoloader && composer run deploy
+    script: git clean -x -f -d && composer install --no-interaction --prefer-dist --optimize-autoloader && travis_wait composer run deploy
     on:
       branch: deploy-ovh
