@@ -22,6 +22,7 @@ Setup
 ```
 composer create-project
 composer install
+composer run development
 ```
 
 ### Start

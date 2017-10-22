@@ -1,9 +1,11 @@
 language: php
 php:
   - 7.1
+before_install:
+  - git config core.safecrlf false
 install:
   - travis_retry composer install --no-interaction --prefer-dist
-
+  - composer run development
 before_script:
   - export DISPLAY=:99.0
   - sh -e /etc/init.d/xvfb start
@@ -16,3 +18,9 @@ cache:
   directories:
     - $HOME/.composer/cache
     - $HOME/.npm
+deploy:
+  - provider: script
+    skip_cleanup: true
+    script: git clean -x -f -d && composer install --no-interaction --prefer-dist --optimize-autoloader && composer run deploy
+    on:
+      branch: deploy-ovh

@@ -5,9 +5,12 @@
 /public/js
 /public/storage
 /storage/*.key
+/temp
 /vendor
+/.htdeployment
 /.idea
 /.vagrant
+deployment.log
 npm-debug.log
 yarn-error.log
 .env*
