@@ -10,9 +10,7 @@ return [
             '/.git',
             '/node_modules',
             '/vendor',
-            '/.htdeployment',
             '/.env*',
-            '!.env.production*',
             '*.sqlite',
             '*.log'
         ], "\n"),
@@ -20,7 +18,7 @@ return [
         'purge' => ['temp/cache'],
         'preprocess' => false,
         'after' => [
-            'remote: mv .env.production .env',
+            'upload: .env.production .env',
             'http://laravel-basic-task-list.amercier.com/post-deployment.php'
         ]
     ],
