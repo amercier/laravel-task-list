@@ -1,9 +1,11 @@
 language: php
 php:
   - 7.1
+before_install:
+  - git config core.safecrlf false
 install:
   - travis_retry composer install --no-interaction --prefer-dist
-
+  - composer run development
 before_script:
   - export DISPLAY=:99.0
   - sh -e /etc/init.d/xvfb start
@@ -12,7 +14,15 @@ before_script:
 script:
   - composer run lint
   - composer run test
+  - killall chromedriver-linux
+  - killall php
 cache:
   directories:
     - $HOME/.composer/cache
     - $HOME/.npm
+deploy:
+  - provider: script
+    skip_cleanup: true
+    script: composer run deploy
+    on:
+      branch: master
