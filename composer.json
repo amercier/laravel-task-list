@@ -7,14 +7,14 @@
     "require": {
         "php": ">=7.0.0",
         "fideloper/proxy": "~3.3",
-        "laravel/framework": "5.5.*",
-        "laravel/tinker": "~1.0"
+        "laravel/framework": "5.5.*"
     },
     "require-dev": {
         "dg/ftp-deployment": "^2.7",
         "filp/whoops": "~2.0",
         "fzaninotto/faker": "~1.4",
         "laravel/dusk": "^2.0",
+        "laravel/tinker": "~1.0",
         "laravel/homestead": "^6.5",
         "mockery/mockery": "~1.0",
         "phpunit/phpunit": "~6.0",
@@ -77,7 +77,6 @@
             "npm run lint"
         ],
         "deploy": [
-            "npm run production",
             "@php -r \"copy('.env.production.example', '.env.production');\"",
             "[ -z \"$DEPLOY_DB_HOST\" ] && echo ERROR: missing \\'DEPLOY_DB_HOST\\' environment variable >&2 && exit 1 || sed -i'' s/DB_HOST=.*/DB_HOST=$DEPLOY_DB_HOST/ .env.production",
             "[ -z \"$DEPLOY_DB_PORT\" ] && echo ERROR: missing \\'DEPLOY_DB_PORT\\' environment variable >&2 && exit 1 || sed -i'' s/DB_PORT=.*/DB_PORT=$DEPLOY_DB_PORT/ .env.production",
@@ -85,11 +84,12 @@
             "[ -z \"$DEPLOY_DB_DATABASE\" ] && echo ERROR: missing \\'DEPLOY_DB_DATABASE\\' environment variable >&2 && exit 1 || sed -i'' s/DB_DATABASE=.*/DB_DATABASE=$DEPLOY_DB_DATABASE/ .env.production",
             "[ -z \"$DEPLOY_DB_USERNAME\" ] && echo ERROR: missing \\'DEPLOY_DB_USERNAME\\' environment variable >&2 && exit 1 || sed -i'' s/DB_USERNAME=.*/DB_USERNAME=$DEPLOY_DB_USERNAME/ .env.production",
             "[ -z \"$DEPLOY_DB_PASSWORD\" ] && echo ERROR: missing \\'DEPLOY_DB_PASSWORD\\' environment variable >&2 && exit 1 || sed -i'' s/DB_PASSWORD=.*/DB_PASSWORD=$DEPLOY_DB_PASSWORD/ .env.production",
-            "@php artisan key:generate --env=production",
+            "npm run production",
             "deployment deployment.php"
         ],
         "post-deploy": [
             "@php composer.phar install --no-interaction --prefer-dist --no-dev --optimize-autoloader",
+            "@php artisan key:generate",
             "@php artisan cache:clear",
             "@php artisan config:cache",
             "@php artisan migrate:install || exit 0",
