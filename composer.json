@@ -98,8 +98,7 @@
             "@php artisan cache:clear",
             "@php artisan key:generate --no-interaction --force",
             "@php artisan config:cache",
-            "@php artisan migrate:install || exit 0",
-            "@php artisan migrate --force",
+            "@php artisan migrate",
             "@php artisan up"   
         ]
     },
