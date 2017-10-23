@@ -1,11 +1,12 @@
 {
-    "name": "amercier/laravel-basic-task-list",
-    "description": "Basic Task List using Laravel framework.",
+    "name": "amercier/laravel-task-list",
+    "description": "Task List using Laravel framework.",
     "keywords": ["todo", "todoapp", "laravel", "framework"],
     "license": "MIT",
     "type": "project",
     "require": {
         "php": ">=7.0.0",
+        "doctrine/dbal": "^2.6",
         "fideloper/proxy": "~3.3",
         "laravel/framework": "5.5.*"
     },
@@ -88,8 +89,8 @@
             "[ -z \"$DEPLOY_DB_PASSWORD\" ] && echo ERROR: missing \\'DEPLOY_DB_PASSWORD\\' environment variable >&2 && exit 1 || sed -i'' s/DB_PASSWORD=.*/DB_PASSWORD=$DEPLOY_DB_PASSWORD/ .env.production",
             "npm run production",
             "deployment deployment.php",
-            "curl --fail --silent --show-error http://laravel-basic-task-list.amercier.com/post-deployment.php",
-            "curl --fail --silent --show-error http://laravel-basic-task-list.amercier.com/ >/dev/null"
+            "curl --fail --silent --show-error http://laravel-task-list.amercier.com/post-deployment.php",
+            "curl --fail --silent --show-error http://laravel-task-list.amercier.com/ >/dev/null"
         ],
         "post-deploy": [
             "@php artisan down || exit 0",
