@@ -59,7 +59,14 @@ class TasksController extends Controller
         return redirect('/');
     }
 
-    public function destroy(Task $task)
+    /**
+     * Destroy the given task.
+     *
+     * @param  Request  $request
+     * @param  Task  $task
+     * @return Response
+     */
+    public function destroy($task)
     {
         $task->delete();
         return redirect('/');
