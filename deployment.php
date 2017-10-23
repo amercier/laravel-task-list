@@ -1,10 +1,10 @@
 <?php
 
 return [
-    'laravel-basic-task-list.amercier.com' => [
+    'laravel-task-list.amercier.com' => [
         'remote' => 'ftp://'
             . getenv('DEPLOY_FTP_USERNAME') . ':' . getenv('DEPLOY_FTP_PASSWORD')
-            . '@ftp.amercier.com/laravel-basic-task-list',
+            . '@ftp.amercier.com/laravel-task-list',
         'local' => '.',
         'ignore' => file_get_contents('.deployignore'),
         'allowDelete' => true,
