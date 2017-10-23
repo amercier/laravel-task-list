@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Validator;
 use App\Task;
 use App\Repositories\TaskRepository;
 
-class TasksController extends Controller
+class TaskController extends Controller
 {
     /**
      * The task repository instance.

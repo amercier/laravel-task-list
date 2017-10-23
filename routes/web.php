@@ -15,6 +15,6 @@
 Auth::routes();
 
 // Tasks route
-Route::get('/', 'TasksController@index');
-Route::post('/task', 'TasksController@store');
-Route::delete('/task/{task}', 'TasksController@destroy');
+Route::get('/', 'TaskController@index');
+Route::post('/task', 'TaskController@store');
+Route::delete('/task/{task}', 'TaskController@destroy');
