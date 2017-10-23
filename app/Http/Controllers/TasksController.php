@@ -5,16 +5,24 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Task;
+use App\Repositories\TaskRepository;
 
 class TasksController extends Controller
 {
     /**
+     * The task repository instance.
+     * @var TaskRepository
+     */
+    protected $tasks;
+
+    /**
      * Create a new controller instance.
      * @return void
      */
-    public function __construct()
+    public function __construct(TaskRepository $tasks)
     {
         $this->middleware('auth');
+        $this->tasks = $tasks;
     }
 
     /**
@@ -23,9 +31,9 @@ class TasksController extends Controller
      */
     public function index(Request $request)
     {
-        $tasks = Task::where('user_id', $request->user()->id)
-                     ->orderBy('created_at', 'asc')->get();
-        return view('tasks', ['tasks' => $tasks]);
+        return view('tasks', [
+            'tasks' => $this->tasks->forUser($request->user())
+        ]);
     }
 
     /**
