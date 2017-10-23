@@ -1,9 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
-
-use App\Task;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -15,54 +11,10 @@ use App\Task;
 |
 */
 
-/**
- * Show Task Dashboard
- */
-Route::get(
-    '/',
-    function () {
-        $tasks = Task::orderBy('created_at', 'asc')->get();
+// Authentication Routes...
+Auth::routes();
 
-        return view(
-            'tasks',
-            ['tasks' => $tasks]
-        );
-    }
-);
-
-/**
- * Add New Task
- */
-Route::post(
-    '/task',
-    function (Request $request) {
-        $validator = Validator::make(
-            $request->all(),
-            ['name' => 'required|max:255']
-        );
-
-        if ($validator->fails()) {
-            return redirect('/')
-            ->withInput()
-            ->withErrors($validator);
-        }
-
-        $task = new Task;
-        $task->name = $request->name;
-        $task->save();
-
-        return redirect('/');
-    }
-);
-
-/**
- * Delete Task
- */
-Route::delete(
-    '/task/{task}',
-    function (Task $task) {
-        $task->delete();
-
-        return redirect('/');
-    }
-);
+// Tasks route
+Route::get('/', 'TasksController@index');
+Route::post('/task', 'TasksController@store');
+Route::delete('/task/{task}', 'TasksController@destroy');
