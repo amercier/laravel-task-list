@@ -17,6 +17,23 @@ class TaskListTest extends DuskTestCase
         $this->browse(
             function (Browser $browser) {
                 $browser->visit('/')
+                    ->assertSee('E-Mail Address')
+                    ->assertSee('Password')
+                    ->assertSee('Remember Me')
+                    ->assertSee('Login')
+
+                    // Register new user
+                    ->clickLink('Register')
+                    ->assertSee('Name')
+                    ->assertSee('E-Mail Address')
+                    ->assertSee('Password')
+                    ->assertSee('Confirm Password')
+                    ->assertSee('Register')
+                    ->type('name', 'John Smith')
+                    ->type('email', 'jsmith@example.com')
+                    ->type('password', 'jsmithlol')
+                    ->type('password_confirmation', 'jsmithlol')
+                    ->press('Register')
 
                     // Empty task list
                     ->assertSee('Task List')

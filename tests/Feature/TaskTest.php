@@ -12,9 +12,20 @@ class TaskTest extends TestCase
      *
      * @return void
      */
-    public function testGet()
+    public function testHomeRedirectsToLogin()
     {
         $response = $this->get('/');
+        $response->assertRedirect('/login');
+    }
+
+    /**
+     * Retrieve task list
+     *
+     * @return void
+     */
+    public function testLoginPage()
+    {
+        $response = $this->get('/login');
         $response->assertStatus(200);
     }
 }
