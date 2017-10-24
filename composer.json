@@ -6,17 +6,18 @@
     "type": "project",
     "require": {
         "php": ">=7.0.0",
+        "dg/ftp-deployment": "^2.7",
         "doctrine/dbal": "^2.5",
         "fideloper/proxy": "~3.3",
-        "laravel/framework": "5.5.*"
+        "laravel/framework": "5.5.*",
+        "olssonm/l5-very-basic-auth": "^4.0"
     },
     "require-dev": {
-        "dg/ftp-deployment": "^2.7",
         "filp/whoops": "~2.0",
         "fzaninotto/faker": "~1.4",
         "laravel/dusk": "^2.0",
-        "laravel/tinker": "~1.0",
         "laravel/homestead": "^6.5",
+        "laravel/tinker": "~1.0",
         "mockery/mockery": "~1.0",
         "phpunit/phpunit": "~6.0",
         "squizlabs/php_codesniffer": "^3.1"
@@ -77,29 +78,32 @@
             "phpcs --extensions=php \"--ignore=vendor/*,node_modules/*,bootstrap/cache/*,storage/*,*.blade.php,public/index.php\"  --standard=PSR2 .",
             "npm run lint"
         ],
+        "curl-post": [
+            "curl --fail --silent --show-error -X POST --user $DEPLOY_BASIC_AUTH_USERNAME:$DEPLOY_BASIC_AUTH_PASSWORD"
+        ],
         "deploy": [
             "@php artisan cache:clear",
             "@php artisan config:clear",
             "@php -r \"copy('.env.production.example', '.env.production');\"",
+            "[ -z \"$DEPLOY_APP_KEY\" ] && echo ERROR: missing \\'DEPLOY_APP_KEY\\' environment variable >&2 && exit 1 || sed -i'' s/APP_KEY=.*/APP_KEY=$DEPLOY_APP_KEY/ .env.production",
             "[ -z \"$DEPLOY_DB_HOST\" ] && echo ERROR: missing \\'DEPLOY_DB_HOST\\' environment variable >&2 && exit 1 || sed -i'' s/DB_HOST=.*/DB_HOST=$DEPLOY_DB_HOST/ .env.production",
             "[ -z \"$DEPLOY_DB_PORT\" ] && echo ERROR: missing \\'DEPLOY_DB_PORT\\' environment variable >&2 && exit 1 || sed -i'' s/DB_PORT=.*/DB_PORT=$DEPLOY_DB_PORT/ .env.production",
             "[ -z \"$DEPLOY_DB_CONNECTION\" ] && echo ERROR: missing \\'DEPLOY_DB_CONNECTION\\' environment variable >&2 && exit 1 || sed -i'' s/DB_CONNECTION=.*/DB_CONNECTION=$DEPLOY_DB_CONNECTION/ .env.production",
             "[ -z \"$DEPLOY_DB_DATABASE\" ] && echo ERROR: missing \\'DEPLOY_DB_DATABASE\\' environment variable >&2 && exit 1 || sed -i'' s/DB_DATABASE=.*/DB_DATABASE=$DEPLOY_DB_DATABASE/ .env.production",
             "[ -z \"$DEPLOY_DB_USERNAME\" ] && echo ERROR: missing \\'DEPLOY_DB_USERNAME\\' environment variable >&2 && exit 1 || sed -i'' s/DB_USERNAME=.*/DB_USERNAME=$DEPLOY_DB_USERNAME/ .env.production",
             "[ -z \"$DEPLOY_DB_PASSWORD\" ] && echo ERROR: missing \\'DEPLOY_DB_PASSWORD\\' environment variable >&2 && exit 1 || sed -i'' s/DB_PASSWORD=.*/DB_PASSWORD=$DEPLOY_DB_PASSWORD/ .env.production",
+            "[ -z \"$DEPLOY_BASIC_AUTH_USERNAME\" ] && echo ERROR: missing \\'DEPLOY_BASIC_AUTH_USERNAME\\' environment variable >&2 && exit 1 || sed -i'' s/BASIC_AUTH_USERNAME=.*/BASIC_AUTH_USERNAME=$DEPLOY_BASIC_AUTH_USERNAME/ .env.production",
+            "[ -z \"$DEPLOY_BASIC_AUTH_PASSWORD\" ] && echo ERROR: missing \\'DEPLOY_BASIC_AUTH_PASSWORD\\' environment variable >&2 && exit 1 || sed -i'' s/BASIC_AUTH_PASSWORD=.*/BASIC_AUTH_PASSWORD=$DEPLOY_BASIC_AUTH_PASSWORD/ .env.production",
+            "@composer install --no-dev",
             "npm run production",
             "deployment deployment.php",
-            "curl --fail --silent --show-error https://laravel-task-list.amercier.com/post-deployment.php",
-            "curl --fail --silent --show-error https://laravel-task-list.amercier.com/ >/dev/null"
-        ],
-        "post-deploy": [
-            "@php artisan down || exit 0",
-            "@php composer.phar install --no-interaction --prefer-dist --no-dev --optimize-autoloader",
-            "@php artisan cache:clear",
-            "@php artisan key:generate --no-interaction --force",
-            "@php artisan config:cache",
-            "@php artisan migrate",
-            "@php artisan up"   
+            "@composer run curl-post https://laravel-task-list.amercier.com/exec/artisan/down",
+            "@composer run curl-post https://laravel-task-list.amercier.com/exec/artisan/cache:clear",
+            "@composer run curl-post https://laravel-task-list.amercier.com/exec/artisan/config:cache",
+            "@composer run curl-post https://laravel-task-list.amercier.com/exec/artisan/migrate",
+            "@composer run curl-post https://laravel-task-list.amercier.com/exec/artisan/up",
+            "curl --fail --silent --show-error https://laravel-task-list.amercier.com/ >/dev/null",
+            "echo \"\n\nDEPLOYMENT SUCCEEDED!\""
         ]
     },
     "config": {
