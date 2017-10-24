@@ -79,21 +79,24 @@
             "npm run lint"
         ],
         "curl-post": [
-            "curl --fail --silent --show-error -X POST --user $DEPLOY_BASIC_AUTH_USERNAME:$DEPLOY_BASIC_AUTH_PASSWORD"
+            "curl --fail --silent --show-error -X POST --user \"$DEPLOY_BASIC_AUTH_USERNAME:$DEPLOY_BASIC_AUTH_PASSWORD\""
+        ],
+        "set-env": [
+            "set_env() { [ -z \"$3\" ] && echo ERROR: missing \\'$4\\' environment variable >&2 && exit 1 || sed -i'' \"s/$2=.*/$2=$3/\" \"$1\"; }; set_env"
         ],
         "deploy": [
             "@php artisan cache:clear",
             "@php artisan config:clear",
             "@php -r \"copy('.env.production.example', '.env.production');\"",
-            "[ -z \"$DEPLOY_APP_KEY\" ] && echo ERROR: missing \\'DEPLOY_APP_KEY\\' environment variable >&2 && exit 1 || sed -i'' s/APP_KEY=.*/APP_KEY=$DEPLOY_APP_KEY/ .env.production",
-            "[ -z \"$DEPLOY_DB_HOST\" ] && echo ERROR: missing \\'DEPLOY_DB_HOST\\' environment variable >&2 && exit 1 || sed -i'' s/DB_HOST=.*/DB_HOST=$DEPLOY_DB_HOST/ .env.production",
-            "[ -z \"$DEPLOY_DB_PORT\" ] && echo ERROR: missing \\'DEPLOY_DB_PORT\\' environment variable >&2 && exit 1 || sed -i'' s/DB_PORT=.*/DB_PORT=$DEPLOY_DB_PORT/ .env.production",
-            "[ -z \"$DEPLOY_DB_CONNECTION\" ] && echo ERROR: missing \\'DEPLOY_DB_CONNECTION\\' environment variable >&2 && exit 1 || sed -i'' s/DB_CONNECTION=.*/DB_CONNECTION=$DEPLOY_DB_CONNECTION/ .env.production",
-            "[ -z \"$DEPLOY_DB_DATABASE\" ] && echo ERROR: missing \\'DEPLOY_DB_DATABASE\\' environment variable >&2 && exit 1 || sed -i'' s/DB_DATABASE=.*/DB_DATABASE=$DEPLOY_DB_DATABASE/ .env.production",
-            "[ -z \"$DEPLOY_DB_USERNAME\" ] && echo ERROR: missing \\'DEPLOY_DB_USERNAME\\' environment variable >&2 && exit 1 || sed -i'' s/DB_USERNAME=.*/DB_USERNAME=$DEPLOY_DB_USERNAME/ .env.production",
-            "[ -z \"$DEPLOY_DB_PASSWORD\" ] && echo ERROR: missing \\'DEPLOY_DB_PASSWORD\\' environment variable >&2 && exit 1 || sed -i'' s/DB_PASSWORD=.*/DB_PASSWORD=$DEPLOY_DB_PASSWORD/ .env.production",
-            "[ -z \"$DEPLOY_BASIC_AUTH_USERNAME\" ] && echo ERROR: missing \\'DEPLOY_BASIC_AUTH_USERNAME\\' environment variable >&2 && exit 1 || sed -i'' s/BASIC_AUTH_USERNAME=.*/BASIC_AUTH_USERNAME=$DEPLOY_BASIC_AUTH_USERNAME/ .env.production",
-            "[ -z \"$DEPLOY_BASIC_AUTH_PASSWORD\" ] && echo ERROR: missing \\'DEPLOY_BASIC_AUTH_PASSWORD\\' environment variable >&2 && exit 1 || sed -i'' s/BASIC_AUTH_PASSWORD=.*/BASIC_AUTH_PASSWORD=$DEPLOY_BASIC_AUTH_PASSWORD/ .env.production",
+            "@composer set-env .env.production APP_KEY $DEPLOY_APP_KEY DEPLOY_APP_KEY",
+            "@composer set-env .env.production DB_HOST $DEPLOY_DB_HOST DEPLOY_DB_HOST",
+            "@composer set-env .env.production DB_PORT $DEPLOY_DB_PORT DEPLOY_DB_PORT",
+            "@composer set-env .env.production DB_CONNECTION $DEPLOY_DB_CONNECTION DEPLOY_DB_CONNECTION",
+            "@composer set-env .env.production DB_DATABASE $DEPLOY_DB_DATABASE DEPLOY_DB_DATABASE",
+            "@composer set-env .env.production DB_USERNAME $DEPLOY_DB_USERNAME DEPLOY_DB_USERNAME",
+            "@composer set-env .env.production DB_PASSWORD $DEPLOY_DB_PASSWORD DEPLOY_DB_PASSWORD",
+            "@composer set-env .env.production BASIC_AUTH_USERNAME $DEPLOY_BASIC_AUTH_USERNAME DEPLOY_BASIC_AUTH_USERNAME",
+            "@composer set-env .env.production BASIC_AUTH_PASSWORD $DEPLOY_BASIC_AUTH_PASSWORD DEPLOY_BASIC_AUTH_PASSWORD",
             "@composer install --no-dev",
             "npm run production",
             "deployment deployment.php",
