@@ -101,11 +101,11 @@
             "echo \"\n\nDEPLOYMENT SUCCEEDED!\""
         ],
         "migrate": [
-            "@php artisan down",
-            "@php artisan cache:clear",
-            "@php artisan config:cache",
-            "@php artisan migrate",
-            "@php artisan up"
+            "@php artisan down --no-interaction",
+            "@php artisan cache:clear --no-interaction",
+            "@php artisan config:cache --no-interaction",
+            "@php artisan migrate --force --no-interaction",
+            "@php artisan up --no-interaction"
         ],
         "ssh": [
             "@php .ssh.php https://ssh.amercier.com/"
