@@ -78,9 +78,6 @@
             "phpcs --extensions=php \"--ignore=vendor/*,node_modules/*,bootstrap/cache/*,storage/*,*.blade.php,public/index.php\"  --standard=PSR2 .",
             "npm run lint"
         ],
-        "curl-post": [
-            "curl --fail --silent --show-error -X POST --user \"$DEPLOY_BASIC_AUTH_USERNAME:$DEPLOY_BASIC_AUTH_PASSWORD\""
-        ],
         "set-env": [
             "set_env() { [ -z \"$3\" ] && echo ERROR: missing \\'$4\\' environment variable >&2 && exit 1 || sed -i'' \"s/$2=.*/$2=$3/\" \"$1\"; }; set_env"
         ],
@@ -95,18 +92,23 @@
             "@composer set-env .env.production DB_DATABASE $DEPLOY_DB_DATABASE DEPLOY_DB_DATABASE",
             "@composer set-env .env.production DB_USERNAME $DEPLOY_DB_USERNAME DEPLOY_DB_USERNAME",
             "@composer set-env .env.production DB_PASSWORD $DEPLOY_DB_PASSWORD DEPLOY_DB_PASSWORD",
-            "@composer set-env .env.production BASIC_AUTH_USERNAME $DEPLOY_BASIC_AUTH_USERNAME DEPLOY_BASIC_AUTH_USERNAME",
-            "@composer set-env .env.production BASIC_AUTH_PASSWORD $DEPLOY_BASIC_AUTH_PASSWORD DEPLOY_BASIC_AUTH_PASSWORD",
             "@composer install --no-dev",
             "npm run production",
             "deployment deployment.php",
-            "@composer run curl-post https://laravel-task-list.amercier.com/exec/artisan/down",
-            "@composer run curl-post https://laravel-task-list.amercier.com/exec/artisan/cache:clear",
-            "@composer run curl-post https://laravel-task-list.amercier.com/exec/artisan/config:cache",
-            "@composer run curl-post https://laravel-task-list.amercier.com/exec/artisan/migrate",
-            "@composer run curl-post https://laravel-task-list.amercier.com/exec/artisan/up",
+            "@composer run ssh \"~/php composer.phar install --no-dev\"",
+            "@composer run ssh \"~/php composer.phar run migrate\"",
             "curl --fail --silent --show-error https://laravel-task-list.amercier.com/ >/dev/null",
             "echo \"\n\nDEPLOYMENT SUCCEEDED!\""
+        ],
+        "migrate": [
+            "@php artisan down",
+            "@php artisan cache:clear",
+            "@php artisan config:cache",
+            "@php artisan migrate",
+            "@php artisan up"
+        ],
+        "ssh": [
+            "@php .ssh.php https://ssh.amercier.com/"
         ]
     },
     "config": {
