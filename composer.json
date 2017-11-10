@@ -15,8 +15,8 @@
         "filp/whoops": "~2.0",
         "fzaninotto/faker": "~1.4",
         "laravel/dusk": "^2.0",
-        "laravel/tinker": "~1.0",
         "laravel/homestead": "^6.5",
+        "laravel/tinker": "~1.0",
         "mockery/mockery": "~1.0",
         "phpunit/phpunit": "~6.0",
         "squizlabs/php_codesniffer": "^3.1"
@@ -77,29 +77,37 @@
             "phpcs --extensions=php \"--ignore=vendor/*,node_modules/*,bootstrap/cache/*,storage/*,*.blade.php,public/index.php\"  --standard=PSR2 .",
             "npm run lint"
         ],
+        "set-env": [
+            "set_env() { [ -z \"$3\" ] && echo ERROR: missing \\'$4\\' environment variable >&2 && exit 1 || sed -i'' \"s/$2=.*/$2=$3/\" \"$1\"; }; set_env"
+        ],
         "deploy": [
             "@php artisan cache:clear",
             "@php artisan config:clear",
             "@php -r \"copy('.env.production.example', '.env.production');\"",
-            "[ -z \"$DEPLOY_DB_HOST\" ] && echo ERROR: missing \\'DEPLOY_DB_HOST\\' environment variable >&2 && exit 1 || sed -i'' s/DB_HOST=.*/DB_HOST=$DEPLOY_DB_HOST/ .env.production",
-            "[ -z \"$DEPLOY_DB_PORT\" ] && echo ERROR: missing \\'DEPLOY_DB_PORT\\' environment variable >&2 && exit 1 || sed -i'' s/DB_PORT=.*/DB_PORT=$DEPLOY_DB_PORT/ .env.production",
-            "[ -z \"$DEPLOY_DB_CONNECTION\" ] && echo ERROR: missing \\'DEPLOY_DB_CONNECTION\\' environment variable >&2 && exit 1 || sed -i'' s/DB_CONNECTION=.*/DB_CONNECTION=$DEPLOY_DB_CONNECTION/ .env.production",
-            "[ -z \"$DEPLOY_DB_DATABASE\" ] && echo ERROR: missing \\'DEPLOY_DB_DATABASE\\' environment variable >&2 && exit 1 || sed -i'' s/DB_DATABASE=.*/DB_DATABASE=$DEPLOY_DB_DATABASE/ .env.production",
-            "[ -z \"$DEPLOY_DB_USERNAME\" ] && echo ERROR: missing \\'DEPLOY_DB_USERNAME\\' environment variable >&2 && exit 1 || sed -i'' s/DB_USERNAME=.*/DB_USERNAME=$DEPLOY_DB_USERNAME/ .env.production",
-            "[ -z \"$DEPLOY_DB_PASSWORD\" ] && echo ERROR: missing \\'DEPLOY_DB_PASSWORD\\' environment variable >&2 && exit 1 || sed -i'' s/DB_PASSWORD=.*/DB_PASSWORD=$DEPLOY_DB_PASSWORD/ .env.production",
+            "@composer set-env .env.production APP_KEY $DEPLOY_APP_KEY DEPLOY_APP_KEY",
+            "@composer set-env .env.production DB_HOST $DEPLOY_DB_HOST DEPLOY_DB_HOST",
+            "@composer set-env .env.production DB_PORT $DEPLOY_DB_PORT DEPLOY_DB_PORT",
+            "@composer set-env .env.production DB_CONNECTION $DEPLOY_DB_CONNECTION DEPLOY_DB_CONNECTION",
+            "@composer set-env .env.production DB_DATABASE $DEPLOY_DB_DATABASE DEPLOY_DB_DATABASE",
+            "@composer set-env .env.production DB_USERNAME $DEPLOY_DB_USERNAME DEPLOY_DB_USERNAME",
+            "@composer set-env .env.production DB_PASSWORD $DEPLOY_DB_PASSWORD DEPLOY_DB_PASSWORD",
             "npm run production",
-            "deployment deployment.php",
-            "curl --fail --silent --show-error https://laravel-task-list.amercier.com/post-deployment.php",
-            "curl --fail --silent --show-error https://laravel-task-list.amercier.com/ >/dev/null"
+            "deployment .deployment.php",
+            "@composer run remote \"[[ -f composer.phar ]] || curl -s https://getcomposer.org/installer | ~/php\"",
+            "@composer run remote \"~/php composer.phar install --no-dev\"",
+            "@composer run remote \"~/php composer.phar run migrate\"",
+            "curl --fail --silent --show-error https://laravel-task-list.amercier.com/ >/dev/null",
+            "echo \"\n\nDEPLOYMENT SUCCEEDED!\""
         ],
-        "post-deploy": [
-            "@php artisan down || exit 0",
-            "@php composer.phar install --no-interaction --prefer-dist --no-dev --optimize-autoloader",
-            "@php artisan cache:clear",
-            "@php artisan key:generate --no-interaction --force",
-            "@php artisan config:cache",
-            "@php artisan migrate",
-            "@php artisan up"   
+        "migrate": [
+            "@php artisan down --no-interaction",
+            "@php artisan cache:clear --no-interaction",
+            "@php artisan config:cache --no-interaction",
+            "@php artisan migrate --force --no-interaction",
+            "@php artisan up --no-interaction"
+        ],
+        "remote": [
+            "@php .webconsole.php $DEPLOY_WEBCONSOLE_URL"
         ]
     },
     "config": {
