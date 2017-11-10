@@ -92,7 +92,6 @@
             "@composer set-env .env.production DB_DATABASE $DEPLOY_DB_DATABASE DEPLOY_DB_DATABASE",
             "@composer set-env .env.production DB_USERNAME $DEPLOY_DB_USERNAME DEPLOY_DB_USERNAME",
             "@composer set-env .env.production DB_PASSWORD $DEPLOY_DB_PASSWORD DEPLOY_DB_PASSWORD",
-            "@composer install --no-dev",
             "npm run production",
             "deployment deployment.php",
             "@composer run ssh \"~/php composer.phar install --no-dev\"",

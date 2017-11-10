@@ -2,7 +2,7 @@
 /storage/framework/sessions/*
 !/storage/framework/sessions/.gitignore
 /temp
-/vendor/dg/ftp-deployment
+/vendor
 /.*
 *.sqlite
 *.log
