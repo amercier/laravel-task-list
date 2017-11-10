@@ -1,6 +1,6 @@
 <?php
 /**
- * .ssh.php URL COMMAND
+ * php .remote.php URL COMMAND
  */
 
 if (!defined('STDIN')) {
@@ -44,16 +44,16 @@ function fetch($url, $id, $method, $params = []) {
 
 // 1. Login
 $login = fetch($argv[1], 1, 'login', [
-    getenv('DEPLOY_SSH_USERNAME'),
-    getenv('DEPLOY_SSH_PASSWORD')
+    getenv('DEPLOY_WEBCONSOLE_USERNAME'),
+    getenv('DEPLOY_WEBCONSOLE_PASSWORD')
 ]);
 
 // 2. Command
 $data = fetch($argv[1], 2, 'run', [
     $login['token'],
     array_merge([], $login['environment'], [
-        'path' => $login['environment']['path'] . '/' . getenv('DEPLOY_SSH_PATH'),
-        'user' => getenv('DEPLOY_SSH_USERNAME')
+        'path' => preg_replace('/^\//', '/home/' . getenv('DEPLOY_WEBCONSOLE_USERNAME') . '/', getenv('DEPLOY_PATH')),
+        'user' => getenv('DEPLOY_WEBCONSOLE_USERNAME')
     ]),
     $argv[2]
 ]);

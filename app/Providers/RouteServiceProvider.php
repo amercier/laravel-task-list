@@ -37,7 +37,6 @@ class RouteServiceProvider extends ServiceProvider
     {
         $this->mapApiRoutes();
         $this->mapWebRoutes();
-        $this->mapExecRoutes();
     }
 
     /**
@@ -67,20 +66,5 @@ class RouteServiceProvider extends ServiceProvider
              ->middleware('api')
              ->namespace($this->namespace)
              ->group(base_path('routes/api.php'));
-    }
-
-    /**
-     * Define the "exec" routes for the application.
-     *
-     * These routes won't receive session state, no CSRF protection, etc.
-     *
-     * @return void
-     */
-    protected function mapExecRoutes()
-    {
-        Route::prefix('exec')
-             ->middleware('exec')
-             ->namespace($this->namespace)
-             ->group(base_path('routes/exec.php'));
     }
 }

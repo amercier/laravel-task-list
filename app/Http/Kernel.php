@@ -14,6 +14,7 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $middleware = [
+        \Illuminate\Foundation\Http\Middleware\CheckForMaintenanceMode::class,
         \Illuminate\Foundation\Http\Middleware\ValidatePostSize::class,
         \App\Http\Middleware\TrimStrings::class,
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
@@ -27,7 +28,6 @@ class Kernel extends HttpKernel
      */
     protected $middlewareGroups = [
         'web' => [
-            \Illuminate\Foundation\Http\Middleware\CheckForMaintenanceMode::class,
             \App\Http\Middleware\EncryptCookies::class,
             \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
             \Illuminate\Session\Middleware\StartSession::class,
@@ -38,13 +38,8 @@ class Kernel extends HttpKernel
         ],
 
         'api' => [
-            \Illuminate\Foundation\Http\Middleware\CheckForMaintenanceMode::class,
             'throttle:60,1',
             'bindings',
-        ],
-
-        'exec' => [
-            'auth.very_basic'
         ]
     ];
 

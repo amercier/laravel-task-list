@@ -6,13 +6,12 @@
     "type": "project",
     "require": {
         "php": ">=7.0.0",
-        "dg/ftp-deployment": "^2.7",
         "doctrine/dbal": "^2.5",
         "fideloper/proxy": "~3.3",
-        "laravel/framework": "5.5.*",
-        "olssonm/l5-very-basic-auth": "^4.0"
+        "laravel/framework": "5.5.*"
     },
     "require-dev": {
+        "dg/ftp-deployment": "^2.7",
         "filp/whoops": "~2.0",
         "fzaninotto/faker": "~1.4",
         "laravel/dusk": "^2.0",
@@ -93,10 +92,10 @@
             "@composer set-env .env.production DB_USERNAME $DEPLOY_DB_USERNAME DEPLOY_DB_USERNAME",
             "@composer set-env .env.production DB_PASSWORD $DEPLOY_DB_PASSWORD DEPLOY_DB_PASSWORD",
             "npm run production",
-            "deployment deployment.php",
-            "@composer run ssh \"[[ -f composer.phar ]] || curl -s https://getcomposer.org/installer | ~/php\"",
-            "@composer run ssh \"~/php composer.phar install --no-dev\"",
-            "@composer run ssh \"~/php composer.phar run migrate\"",
+            "deployment .deployment.php",
+            "@composer run remote \"[[ -f composer.phar ]] || curl -s https://getcomposer.org/installer | ~/php\"",
+            "@composer run remote \"~/php composer.phar install --no-dev\"",
+            "@composer run remote \"~/php composer.phar run migrate\"",
             "curl --fail --silent --show-error https://laravel-task-list.amercier.com/ >/dev/null",
             "echo \"\n\nDEPLOYMENT SUCCEEDED!\""
         ],
@@ -107,8 +106,8 @@
             "@php artisan migrate --force --no-interaction",
             "@php artisan up --no-interaction"
         ],
-        "ssh": [
-            "@php .ssh.php https://ssh.amercier.com/"
+        "remote": [
+            "@php .webconsole.php $DEPLOY_WEBCONSOLE_URL"
         ]
     },
     "config": {
