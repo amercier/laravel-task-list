@@ -94,6 +94,7 @@
             "@composer set-env .env.production DB_PASSWORD $DEPLOY_DB_PASSWORD DEPLOY_DB_PASSWORD",
             "npm run production",
             "deployment deployment.php",
+            "@composer run ssh \"[[ -f composer.phar ]] || curl -s https://getcomposer.org/installer | ~/php\"",
             "@composer run ssh \"~/php composer.phar install --no-dev\"",
             "@composer run ssh \"~/php composer.phar run migrate\"",
             "curl --fail --silent --show-error https://laravel-task-list.amercier.com/ >/dev/null",
