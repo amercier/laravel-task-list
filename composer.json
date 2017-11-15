@@ -1,118 +1,122 @@
 {
-    "name": "amercier/laravel-task-list",
-    "description": "Task List using Laravel framework.",
-    "keywords": ["todo", "todoapp", "laravel", "framework"],
-    "license": "MIT",
-    "type": "project",
-    "require": {
-        "php": ">=7.0.0",
-        "doctrine/dbal": "^2.5",
-        "fideloper/proxy": "~3.3",
-        "laravel/framework": "5.5.*"
-    },
-    "require-dev": {
-        "dg/ftp-deployment": "^2.7",
-        "filp/whoops": "~2.0",
-        "fzaninotto/faker": "~1.4",
-        "laravel/dusk": "^2.0",
-        "laravel/homestead": "^6.5",
-        "laravel/tinker": "~1.0",
-        "mockery/mockery": "~1.0",
-        "phpunit/phpunit": "~6.0",
-        "squizlabs/php_codesniffer": "^3.1"
-    },
-    "autoload": {
-        "classmap": [
-            "database/seeds",
-            "database/factories"
-        ],
-        "psr-4": {
-            "App\\": "app/"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "Tests\\": "tests/"
-        }
-    },
-    "extra": {
-        "laravel": {
-            "dont-discover": [
-            ]
-        }
-    },
-    "scripts": {
-        "pre-install-cmd": [
-            "@php -r \"file_exists('.env') || copy('.env.example', '.env');\"",
-            "@php -r \"file_exists('.env.staging') || copy('.env.staging.example', '.env.staging');\"",
-            "@php -r \"file_exists('.env.testing') || copy('.env.testing.example', '.env.testing');\""
-        ],
-        "post-autoload-dump": [
-            "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
-            "@php artisan package:discover"
-        ],
-        "development": [
-            "@php artisan key:generate",
-            "@php artisan key:generate --env=staging",
-            "@php artisan key:generate --env=testing",
-            "touch database/database.sqlite",
-            "@php artisan migrate:refresh --seed",
-            "npm install",
-            "npm run development"
-        ],
-        "test": [
-            "phpunit --colors=always",
-            "@php artisan dusk --colors=always"
-        ],
-        "homestead-init": [
-            "vagrant up --provision",
-            "vagrant ssh -c \"cd code && php artisan migrate:refresh --seed\""
-        ],
-        "homestead-test": [
-            "vagrant up --provision",
-            "vagrant ssh -c \"cd code && composer run test\""
-        ],
-        "lint": [
-            "phpcs --extensions=php \"--ignore=vendor/*,node_modules/*,bootstrap/cache/*,storage/*,*.blade.php,public/index.php\"  --standard=PSR1 .",
-            "phpcs --extensions=php \"--ignore=vendor/*,node_modules/*,bootstrap/cache/*,storage/*,*.blade.php,public/index.php\"  --standard=PSR2 .",
-            "npm run lint"
-        ],
-        "set-env": [
-            "set_env() { [ -z \"$3\" ] && echo ERROR: missing \\'$4\\' environment variable >&2 && exit 1 || sed -i'' \"s/$2=.*/$2=$3/\" \"$1\"; }; set_env"
-        ],
-        "deploy": [
-            "@php artisan cache:clear",
-            "@php artisan config:clear",
-            "@php -r \"copy('.env.production.example', '.env.production');\"",
-            "@composer set-env .env.production APP_KEY $DEPLOY_APP_KEY DEPLOY_APP_KEY",
-            "@composer set-env .env.production DB_HOST $DEPLOY_DB_HOST DEPLOY_DB_HOST",
-            "@composer set-env .env.production DB_PORT $DEPLOY_DB_PORT DEPLOY_DB_PORT",
-            "@composer set-env .env.production DB_CONNECTION $DEPLOY_DB_CONNECTION DEPLOY_DB_CONNECTION",
-            "@composer set-env .env.production DB_DATABASE $DEPLOY_DB_DATABASE DEPLOY_DB_DATABASE",
-            "@composer set-env .env.production DB_USERNAME $DEPLOY_DB_USERNAME DEPLOY_DB_USERNAME",
-            "@composer set-env .env.production DB_PASSWORD $DEPLOY_DB_PASSWORD DEPLOY_DB_PASSWORD",
-            "npm run production",
-            "deployment .deployment.php",
-            "@composer run remote \"[[ -f composer.phar ]] || curl -s https://getcomposer.org/installer | ~/php\"",
-            "@composer run remote \"~/php composer.phar install --no-dev\"",
-            "@composer run remote \"~/php composer.phar run migrate\"",
-            "curl --fail --silent --show-error https://laravel-task-list.amercier.com/ >/dev/null",
-            "echo \"\n\nDEPLOYMENT SUCCEEDED!\""
-        ],
-        "migrate": [
-            "@php artisan down --no-interaction",
-            "@php artisan cache:clear --no-interaction",
-            "@php artisan config:cache --no-interaction",
-            "@php artisan migrate --force --no-interaction",
-            "@php artisan up --no-interaction"
-        ],
-        "remote": [
-            "@php .webconsole.php $DEPLOY_WEBCONSOLE_URL"
-        ]
-    },
-    "config": {
-        "preferred-install": "dist",
-        "sort-packages": true,
-        "optimize-autoloader": true
+  "name": "amercier/laravel-task-list",
+  "description": "Task List using Laravel framework.",
+  "keywords": [
+    "todo",
+    "todoapp",
+    "laravel",
+    "framework"
+  ],
+  "license": "MIT",
+  "type": "project",
+  "require": {
+    "php": ">=7.0.0",
+    "doctrine/dbal": "^2.5",
+    "fideloper/proxy": "~3.3",
+    "laravel/framework": "5.5.*"
+  },
+  "require-dev": {
+    "dg/ftp-deployment": "^2.7",
+    "filp/whoops": "~2.0",
+    "fzaninotto/faker": "~1.4",
+    "laravel/dusk": "^2.0",
+    "laravel/homestead": "^6.5",
+    "laravel/tinker": "~1.0",
+    "mockery/mockery": "~1.0",
+    "phpunit/phpunit": "~6.0",
+    "squizlabs/php_codesniffer": "^3.1"
+  },
+  "autoload": {
+    "classmap": [
+      "database/seeds",
+      "database/factories"
+    ],
+    "psr-4": {
+      "App\\": "app/"
     }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Tests\\": "tests/"
+    }
+  },
+  "extra": {
+    "laravel": {
+      "dont-discover": []
+    }
+  },
+  "scripts": {
+    "pre-install-cmd": [
+      "@php -r \"file_exists('.env') || copy('.env.example', '.env');\"",
+      "@php -r \"file_exists('.env.staging') || copy('.env.staging.example', '.env.staging');\"",
+      "@php -r \"file_exists('.env.testing') || copy('.env.testing.example', '.env.testing');\""
+    ],
+    "post-autoload-dump": [
+      "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
+      "@php artisan package:discover"
+    ],
+    "development": [
+      "@php artisan key:generate",
+      "@php artisan key:generate --env=staging",
+      "@php artisan key:generate --env=testing",
+      "touch database/database.sqlite",
+      "@php artisan migrate:refresh --seed",
+      "npm install",
+      "npm run development"
+    ],
+    "test": [
+      "phpunit --colors=always",
+      "@php artisan dusk --colors=always"
+    ],
+    "homestead-init": [
+      "vagrant up --provision",
+      "vagrant ssh -c \"cd code && php artisan migrate:refresh --seed\""
+    ],
+    "homestead-test": [
+      "vagrant up --provision",
+      "vagrant ssh -c \"cd code && composer run test\""
+    ],
+    "lint": [
+      "phpcs --extensions=php \"--ignore=vendor/*,node_modules/*,bootstrap/cache/*,storage/*,*.blade.php,public/index.php\"  --standard=PSR1 .",
+      "phpcs --extensions=php \"--ignore=vendor/*,node_modules/*,bootstrap/cache/*,storage/*,*.blade.php,public/index.php\"  --standard=PSR2 .",
+      "npm run lint"
+    ],
+    "set-env": [
+      "set_env() { [ -z \"$3\" ] && echo ERROR: missing \\'$4\\' environment variable >&2 && exit 1 || sed -i'' \"s/$2=.*/$2=$3/\" \"$1\"; }; set_env"
+    ],
+    "deploy": [
+      "@php artisan cache:clear",
+      "@php artisan config:clear",
+      "@php -r \"copy('.env.production.example', '.env.production');\"",
+      "@composer set-env .env.production APP_KEY $DEPLOY_APP_KEY DEPLOY_APP_KEY",
+      "@composer set-env .env.production DB_HOST $DEPLOY_DB_HOST DEPLOY_DB_HOST",
+      "@composer set-env .env.production DB_PORT $DEPLOY_DB_PORT DEPLOY_DB_PORT",
+      "@composer set-env .env.production DB_CONNECTION $DEPLOY_DB_CONNECTION DEPLOY_DB_CONNECTION",
+      "@composer set-env .env.production DB_DATABASE $DEPLOY_DB_DATABASE DEPLOY_DB_DATABASE",
+      "@composer set-env .env.production DB_USERNAME $DEPLOY_DB_USERNAME DEPLOY_DB_USERNAME",
+      "@composer set-env .env.production DB_PASSWORD $DEPLOY_DB_PASSWORD DEPLOY_DB_PASSWORD",
+      "npm run production",
+      "deployment .deployment.php",
+      "@composer run remote \"[[ -f composer.phar ]] || curl -s https://getcomposer.org/installer | ~/php\"",
+      "@composer run remote \"~/php composer.phar install --no-dev\"",
+      "@composer run remote \"~/php composer.phar run migrate\"",
+      "curl --fail --silent --show-error https://laravel-task-list.amercier.com/ >/dev/null",
+      "echo \"\n\nDEPLOYMENT SUCCEEDED!\""
+    ],
+    "migrate": [
+      "@php artisan down --no-interaction",
+      "@php artisan cache:clear --no-interaction",
+      "@php artisan config:cache --no-interaction",
+      "@php artisan migrate --force --no-interaction",
+      "@php artisan up --no-interaction"
+    ],
+    "remote": [
+      "@php .webconsole.php $DEPLOY_WEBCONSOLE_URL"
+    ]
+  },
+  "config": {
+    "preferred-install": "dist",
+    "sort-packages": true,
+    "optimize-autoloader": true
+  }
 }
