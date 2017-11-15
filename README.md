@@ -1,7 +1,7 @@
 Laravel Task List
 =================
 
-[![Build Status](https://travis-ci.org/amercier/laravel-basic-task-list.svg?branch=master)](https://travis-ci.org/amercier/laravel-basic-task-list)
+[![Build Status](https://travis-ci.org/amercier/laravel-task-list.svg?branch=master)](https://travis-ci.org/amercier/laravel-task-list)
 
 Task List using Laravel PHP framework, based on official
 [Basic Task List](https://laravel.com/docs/5.2/quickstart) and

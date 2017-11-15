@@ -7,7 +7,7 @@ keys:
     - ~/.ssh/id_rsa
 folders:
     -
-        map: /Users/amercier/Workspace/laravel-basic-task-list
+        map: /Users/amercier/Workspace/laravel-task-list
         to: /home/vagrant/code
 sites:
     -
@@ -15,8 +15,8 @@ sites:
         to: /home/vagrant/code/public
 databases:
     - homestead
-name: laravel-basic-task-list
-hostname: laravel-basic-task-list
+name: laravel-task-list
+hostname: laravel-task-list
 ports:
     - guest: 80
       host: 8080 # Prevents collision with `php artisan serve`
