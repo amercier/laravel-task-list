@@ -5,15 +5,15 @@ before_install:
   - git config core.safecrlf false
 install:
   - travis_retry composer install --no-interaction --prefer-dist
-  - composer run development
+  - composer development
 before_script:
   - export DISPLAY=:99.0
   - sh -e /etc/init.d/xvfb start
   - ./vendor/laravel/dusk/bin/chromedriver-linux &
   - php artisan serve &
 script:
-  - composer run lint
-  - composer run test
+  - composer lint
+  - composer test
   - killall chromedriver-linux
   - killall php
 cache:
@@ -23,6 +23,6 @@ cache:
 deploy:
   - provider: script
     skip_cleanup: true
-    script: COMPOSER_PROCESS_TIMEOUT=0 composer run deploy
+    script: COMPOSER_PROCESS_TIMEOUT=0 composer deploy
     on:
       branch: master
