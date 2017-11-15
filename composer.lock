@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "490f26caa93ede12a1957ea0dc635732",
+    "content-hash": "81b910d96f7391c475b907fc7cddf575",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -2201,6 +2201,89 @@
         }
     ],
     "packages-dev": [
+        {
+            "name": "amercier/cli-helpers",
+            "version": "v1.4.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/amercier/php-cli-helpers.git",
+                "reference": "78c77c30d41a0cd45a5be3289e90d688430cb28f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/amercier/php-cli-helpers/zipball/78c77c30d41a0cd45a5be3289e90d688430cb28f",
+                "reference": "78c77c30d41a0cd45a5be3289e90d688430cb28f",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.2"
+            },
+            "require-dev": {
+                "pear-pear.php.net/php_codesniffer": ">=1.4.5",
+                "phpunit/phpunit": "4.*",
+                "satooshi/php-coveralls": ">=0.6.1"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Cli": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "include-path": [
+                "src/"
+            ],
+            "license": [
+                "MIT"
+            ],
+            "description": "Utility classes to write PHP command-line scripts",
+            "homepage": "https://github.com/amercier/php-cli-helpers",
+            "keywords": [
+                "cli",
+                "command",
+                "command-line",
+                "helpers",
+                "line",
+                "utilities",
+                "utility"
+            ],
+            "time": "2014-09-18T17:37:41+00:00"
+        },
+        {
+            "name": "amercier/webconsole-cli",
+            "version": "v0.1.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/amercier/webconsole-cli.git",
+                "reference": "b4e0ae8f6e39773f6cb6afa5753d87e771d7cab5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/amercier/webconsole-cli/zipball/b4e0ae8f6e39773f6cb6afa5753d87e771d7cab5",
+                "reference": "b4e0ae8f6e39773f6cb6afa5753d87e771d7cab5",
+                "shasum": ""
+            },
+            "require": {
+                "amercier/cli-helpers": "^1.4",
+                "php": ">=5.3.2"
+            },
+            "bin": [
+                "bin/webconsole"
+            ],
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "ISC"
+            ],
+            "authors": [
+                {
+                    "name": "Alex Mercier",
+                    "email": "pro.alexandre.mercier@gmail.com"
+                }
+            ],
+            "description": "Command-line interface for Nickolay Kovalev's Web Console",
+            "time": "2017-11-15T14:22:25+00:00"
+        },
         {
             "name": "dg/ftp-deployment",
             "version": "v2.7",

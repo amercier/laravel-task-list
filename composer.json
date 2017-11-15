@@ -16,6 +16,7 @@
     "laravel/framework": "5.5.*"
   },
   "require-dev": {
+    "amercier/webconsole-cli": "^0.1.1",
     "dg/ftp-deployment": "^2.7",
     "filp/whoops": "~2.0",
     "fzaninotto/faker": "~1.4",
@@ -111,7 +112,7 @@
       "@php artisan up --no-interaction"
     ],
     "remote": [
-      "@php .webconsole.php $DEPLOY_WEBCONSOLE_URL"
+      "webconsole -u \"$DEPLOY_WEBCONSOLE_USERNAME\" -p \"$DEPLOY_WEBCONSOLE_PASSWORD\" $DEPLOY_WEBCONSOLE_URL"
     ]
   },
   "config": {
