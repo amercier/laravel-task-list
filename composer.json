@@ -20,7 +20,7 @@
     "dg/ftp-deployment": "^2.7",
     "filp/whoops": "~2.0",
     "fzaninotto/faker": "~1.4",
-    "laravel/dusk": "^2.0",
+    "laravel/dusk": "2.x",
     "laravel/homestead": "^6.5",
     "laravel/tinker": "~1.0",
     "mockery/mockery": "~1.0",
