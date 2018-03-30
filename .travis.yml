@@ -1,3 +1,7 @@
+sudo: required
+dist: trusty
+addons:
+   chrome: stable
 language: php
 php:
   - 7.1
@@ -7,15 +11,11 @@ install:
   - travis_retry composer install --no-interaction --prefer-dist
   - composer development
 before_script:
-  - export DISPLAY=:99.0
-  - sh -e /etc/init.d/xvfb start
-  - ./vendor/laravel/dusk/bin/chromedriver-linux &
+  - google-chrome-stable --headless --disable-gpu --remote-debugging-port=9222 http://localhost &
   - php artisan serve &
 script:
   - composer lint
   - composer test
-  - killall chromedriver-linux
-  - killall php
 cache:
   directories:
     - $HOME/.composer/cache
