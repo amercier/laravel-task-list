@@ -27,7 +27,8 @@ Setup
 MacOS install instructions:
 ```bash
 # PHP & Composer
-brew install php72-xdebug composer
+brew install php@7.2 composer
+pecl install xdebug
 
 # NVM, NodeJS and Yarn
 brew install nvm
