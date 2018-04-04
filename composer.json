@@ -12,15 +12,15 @@
   "require": {
     "php": ">=7.2.0",
     "doctrine/dbal": "2.x",
-    "fideloper/proxy": "3.x",
-    "laravel/framework": "5.5.x"
+    "fideloper/proxy": "4.x",
+    "laravel/framework": "5.6.x"
   },
   "require-dev": {
     "amercier/webconsole-cli": "0.x",
     "dg/ftp-deployment": "2.x",
     "filp/whoops": "2.x",
     "fzaninotto/faker": "1.x",
-    "laravel/dusk": "2.x",
+    "laravel/dusk": "3.x",
     "laravel/homestead": "6.x",
     "laravel/tinker": "1.x",
     "mockery/mockery": "1.x",
