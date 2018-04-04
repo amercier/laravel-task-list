@@ -1,17 +1,17 @@
 <?php
 
 return [
-    'laravel-task-list.amercier.com' => [
+    'oeco' => [
         'remote' => 'ftp://'
             . getenv('DEPLOY_FTP_USERNAME') . ':' . getenv('DEPLOY_FTP_PASSWORD')
-            . '@ftp.amercier.com/' . getenv('DEPLOY_PATH'),
+            . '@' . getenv('DEPLOY_FTP_URL') . '/' . getenv('DEPLOY_PATH'),
         'local' => '.',
         'ignore' => file_get_contents('.deployignore'),
         'allowDelete' => true,
         'purge' => ['temp/cache'],
         'preprocess' => false,
         'after' => [
-            'upload: .env.production .env'
+            'upload: .env.' . getenv('DEPLOY_ENVIRONMENT') . ' .env'
         ]
     ],
     'tempDir' => __DIR__ . '/temp',

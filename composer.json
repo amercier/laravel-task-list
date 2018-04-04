@@ -66,7 +66,9 @@
       "npm run development"
     ],
     "test": [
-      "phpunit --colors=always",
+      "phpunit --colors=always"
+    ],
+    "test-e2e": [
       "@php artisan dusk --colors=always"
     ],
     "homestead-init": [
@@ -97,7 +99,7 @@
       "@composer set-env .env.production DB_USERNAME $DEPLOY_DB_USERNAME DEPLOY_DB_USERNAME",
       "@composer set-env .env.production DB_PASSWORD $DEPLOY_DB_PASSWORD DEPLOY_DB_PASSWORD",
       "npm run production",
-      "deployment .deployment.php",
+      "DEPLOY_ENVIRONMENT=production deployment .deployment.php",
       "@composer remote \"[[ -f composer.phar ]] || curl -s https://getcomposer.org/installer | ~/php\"",
       "@composer remote \"~/php composer.phar install --no-dev\"",
       "@composer remote \"~/php composer.phar run migrate\"",
@@ -112,7 +114,7 @@
       "@php artisan up --no-interaction"
     ],
     "remote": [
-      "webconsole -u \"$DEPLOY_WEBCONSOLE_USERNAME\" -p \"$DEPLOY_WEBCONSOLE_PASSWORD\" $DEPLOY_WEBCONSOLE_URL"
+      "webconsole -u \"$DEPLOY_WEBCONSOLE_USERNAME\" -p \"$DEPLOY_WEBCONSOLE_PASSWORD\" -P $DEPLOY_PATH $DEPLOY_WEBCONSOLE_URL"
     ]
   },
   "config": {
