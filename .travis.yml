@@ -17,7 +17,7 @@ script:
 cache:
   directories:
     - $HOME/.composer/cache
-    - $HOME/.npm
+    - $HOME/.yarn-cache
 deploy:
   - provider: script
     skip_cleanup: true

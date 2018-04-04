@@ -62,8 +62,8 @@
       "@php artisan key:generate --env=testing",
       "touch database/database.sqlite",
       "@php artisan migrate:refresh --seed",
-      "npm install",
-      "npm run development"
+      "yarn install",
+      "yarn development"
     ],
     "test": [
       "phpunit --colors=always"
@@ -82,7 +82,7 @@
     "lint": [
       "phpcs --extensions=php \"--ignore=vendor/*,node_modules/*,bootstrap/cache/*,storage/*,*.blade.php,public/index.php\"  --standard=PSR1 .",
       "phpcs --extensions=php \"--ignore=vendor/*,node_modules/*,bootstrap/cache/*,storage/*,*.blade.php,public/index.php\"  --standard=PSR2 .",
-      "npm run lint"
+      "yarn lint"
     ],
     "set-env": [
       "set_env() { [ -z \"$3\" ] && echo ERROR: missing \\'$4\\' environment variable >&2 && exit 1 || sed -i'' \"s/$2=.*/$2=$3/\" \"$1\"; }; set_env"
@@ -98,7 +98,7 @@
       "@composer set-env .env.production DB_DATABASE $DEPLOY_DB_DATABASE DEPLOY_DB_DATABASE",
       "@composer set-env .env.production DB_USERNAME $DEPLOY_DB_USERNAME DEPLOY_DB_USERNAME",
       "@composer set-env .env.production DB_PASSWORD $DEPLOY_DB_PASSWORD DEPLOY_DB_PASSWORD",
-      "npm run production",
+      "yarn production",
       "DEPLOY_ENVIRONMENT=production deployment .deployment.php",
       "@composer remote \"[[ -f composer.phar ]] || curl -s https://getcomposer.org/installer | ~/php\"",
       "@composer remote \"~/php composer.phar install --no-dev\"",
