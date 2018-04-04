@@ -9,7 +9,6 @@ install:
   - travis_retry composer install --no-interaction --prefer-dist
   - composer development
 before_script:
-  - google-chrome-stable --headless --disable-gpu --remote-debugging-port=9222 http://localhost &
   - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > cc-test-reporter
   - chmod +x cc-test-reporter
   - ./cc-test-reporter before-build
@@ -17,6 +16,7 @@ before_script:
 script:
   - composer lint
   - composer test
+  - composer test-e2e
 after_script:
   - ln -s coverage/clover.xml
   - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
