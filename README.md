@@ -19,10 +19,21 @@ Setup
 
 ### Requirements
 
-1. [Homebrew](https://brew.sh/)
-2. [VirtualBox](https://www.virtualbox.org/)
-3. Vagrant: `brew install vagrant`
-4. Composer: `brew tap caskroom/cask && brew cask install vagrant`
+- [PHP](http://php.net/) >=7.2
+- [Composer](https://getcomposer.org/)
+- [NodeJS](https://nodejs.org/en/) ([NVM](https://github.com/creationix/nvm) recommended)
+- [Yarn](https://yarnpkg.com/en/)
+
+MacOS install instructions:
+```bash
+# PHP & Composer
+brew install php72-xdebug composer
+
+# NVM, NodeJS and Yarn
+brew install nvm
+nvm install node
+npm install -g yarn
+```
 
 ### Initial setup
 
@@ -35,7 +46,7 @@ composer run development
 
 ### Start
 
-#### Local environment: 
+#### Local environment:
 
 1. Run
 ```
