@@ -2,7 +2,7 @@ addons:
    chrome: stable
 language: php
 php:
-  - 7.1
+  - 7.2
 before_install:
   - git config core.safecrlf false
 install:
