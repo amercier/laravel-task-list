@@ -32,7 +32,8 @@ abstract class DuskTestCase extends BaseTestCase
         $options = (new ChromeOptions)->addArguments(
             [
             '--disable-gpu',
-            '--headless'
+            '--headless',
+            '--no-sandbox' // Workaround for https://github.com/travis-ci/travis-ci/issues/8836
             ]
         );
 
